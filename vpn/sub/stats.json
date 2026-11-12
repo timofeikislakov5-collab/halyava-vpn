@@ -1,14 +1,87 @@
 {
-  "all": 550,
+  "all": 500,
   "russia_white": 79,
   "russia_mobile": 134,
   "russia_wifi": 190,
   "russia_reserve": 28,
   "russia": 431,
   "vless": 300,
-  "vmess": 241,
+  "vmess": 210,
   "trojan": 300,
   "ss": 300,
+  "top": [
+    {
+      "name": "🔥 ТОП-1 🇺🇸 · Wi-Fi · Reality · 105мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 105,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-2 🇺🇸 · Wi-Fi · Reality · 88мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 88,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-3 🇺🇸 · Wi-Fi · Reality · 156мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 156,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-4 🇺🇸 · Wi-Fi · Reality · 172мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 172,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-5 🇺🇸 · Wi-Fi · Reality · 164мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 164,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-6 🇺🇸 · Wi-Fi · Reality · 139мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 139,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-7 🇺🇸 · Wi-Fi · Reality · 185мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 185,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-8 🇺🇸 · Wi-Fi · Reality · 220мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 220,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-9 🇺🇸 · Wi-Fi · Reality · 223мс",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 223,
+      "stable": false
+    },
+    {
+      "name": "🔥 ТОП-10 🇯🇵 · Wi-Fi · VLESS · 118мс",
+      "proto": "vless",
+      "cc": "JP",
+      "ms": 118,
+      "stable": false
+    }
+  ],
+  "working": 398,
   "openvpn": 30,
-  "updated": "12.11.2026 16:29 МСК"
+  "updated": "12.11.2026 16:36 МСК"
 }
