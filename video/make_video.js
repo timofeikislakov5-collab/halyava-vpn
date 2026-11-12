@@ -53,49 +53,64 @@ function plural(n, one, few, many) {
 const T = stats.russia, W = working;
 const srv = n => `${n} ${plural(n, 'сервер', 'сервера', 'серверов')}`;
 const work = n => `${n} ${plural(n, 'работает', 'работают', 'работают')}`;
+// Озвучка из 5 фраз — по одной на сцену: хук · цифры · ТОП · 3 шага · призыв.
+// Между фразами пауза: по паузам ролик подстраивает смену сцен под голос.
+const WRK = `${srv(W)} ${plural(W, 'работает', 'работают', 'работают')}`;
 const VOICE = [
-  `Ви-пи-эн за ноль рублей? Серьёзно! ${srv(T)} в одной ссылке, ${work(W)} прямо сейчас. Скопируй ссылку, вставь в Хэпп — и подключайся. Бесплатно. Навсегда. Ссылка в профиле!`,
-  `Хватит платить за ви-пи-эн! Есть бесплатный — одной ссылкой. ${srv(T)}, и лучшие всегда сверху. Скопируй ссылку, вставь в Хэпп, нажми «подключить». Ссылка в профиле!`,
-  `Мобильный интернет урезали белыми списками? Не беда! В Халява ви-пи-эн есть отдельные серверы для белых списков. Скопируй ссылку, вставь в Хэпп и подключайся. Ссылка в профиле!`,
-  `${srv(W)} ${plural(W, 'работает', 'работают', 'работают')} прямо сейчас! Каждые три часа робот проверяет их и ставит самые быстрые наверх. Скопируй ссылку, вставь в Хэпп — готово. Ссылка в профиле!`,
-  `Твой ви-пи-эн опять отвалился? Этот обновляется сам, каждые три часа. ${srv(T)} в одной ссылке. Вставь её в Хэпп и подключайся. Бесплатно! Ссылка в профиле!`,
-  `Подключение за одну минуту! Скопируй ссылку, вставь в Хэпп, нажми «подключить». ${srv(T)}, и всё бесплатно. Халява ви-пи-эн. Ссылка в профиле!`,
-  `Топ серверов дня! Самые быстрые — всегда первыми, со значком огня. ${srv(W)} ${plural(W, 'работает', 'работают', 'работают')} прямо сейчас. Вставь ссылку в Хэпп и выбирай лучший. Ссылка в профиле!`,
+  ['Ви-пи-эн за ноль рублей.', `${srv(T)} в одной ссылке. ${WRK} прямо сейчас.`, 'Самые быстрые — всегда сверху. Обновление каждые три часа.', 'Скопируй ссылку. Вставь в Хэпп. Подключайся.', 'Халява ви-пи-эн. Бесплатно. Ссылка в профиле.'],
+  ['Хватит платить за ви-пи-эн.', `Вот ${srv(T)} — бесплатно и в одной ссылке.`, 'Лучшие серверы всегда наверху списка.', 'Скопируй ссылку. Вставь в Хэпп. Подключайся.', 'Без подписки и без карты. Ссылка в профиле.'],
+  ['Белые списки на мобильном? Не проблема.', `${srv(T)}, включая отдельные серверы для белых списков.`, 'Самые быстрые — всегда первыми.', 'Скопируй ссылку. Вставь в Хэпп. Подключайся.', 'Халява ви-пи-эн. Ссылка в профиле.'],
+  [`${WRK} прямо сейчас.`, `Всего ${srv(T)} в одной ссылке.`, 'Каждые три часа — проверка, и быстрые встают наверх.', 'Скопируй ссылку. Вставь в Хэпп. Подключайся.', 'Бесплатно. Ссылка в профиле.'],
+  ['Ви-пи-эн опять отвалился?', `Здесь ${srv(T)}, и список обновляется сам.`, 'Каждые три часа мёртвые серверы меняются на живые.', 'Скопируй ссылку. Вставь в Хэпп. Подключайся.', 'Халява ви-пи-эн. Ссылка в профиле.'],
+  ['Подключение за одну минуту.', `${srv(T)} — в одной ссылке.`, 'Лучшие отмечены огнём и стоят первыми.', 'Скопируй ссылку. Вставь в Хэпп. Подключайся.', 'Бесплатно. Ссылка в профиле.'],
+  ['Топ серверов дня.', `${WRK} прямо сейчас.`, 'Самые быстрые — всегда первыми.', 'Скопируй ссылку. Вставь в Хэпп. Подключайся.', 'Халява ви-пи-эн. Ссылка в профиле.'],
 ];
-const voiceText = VOICE[dayN % VOICE.length];
+const voiceParts = VOICE[dayN % VOICE.length];
+const voiceText = voiceParts.join('\n\n');
 
 const { execFileSync } = require('child_process');
 function duration(file) {
   return parseFloat(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', file]).toString()) || 0;
 }
 // Сначала нейроголос Microsoft (edge-tts), если недоступен — RHVoice, если и его нет — без голоса.
+// Движки озвучки по порядку: ElevenLabs (если есть ключ) → нейроголос Microsoft → RHVoice.
+const GAP = 0.45;                                     // пауза между фразами, с
+const ENGINES = [
+  ['ElevenLabs', () => !!process.env.ELEVENLABS_API_KEY, (text, out) => execFileSync('curl', ['-sS', '--fail', '--max-time', '90', '-o', out, '-X', 'POST',
+      `https://api.elevenlabs.io/v1/text-to-speech/${process.env.ELEVENLABS_VOICE || 'SkGOoi8yfK3ONMNKMKj0'}?output_format=mp3_44100_128`,   // Maxim — уверенный баритон
+      '-H', 'xi-api-key: ' + process.env.ELEVENLABS_API_KEY, '-H', 'Content-Type: application/json',
+      '-d', JSON.stringify({ text, model_id: process.env.ELEVENLABS_MODEL || 'eleven_multilingual_v2',
+        voice_settings: { stability: 0.55, similarity_boost: 0.8, style: 0.35, use_speaker_boost: true } })],
+      { stdio: 'pipe', timeout: 100000 }), '.mp3'],
+  ['нейроголос Microsoft', () => true, (text, out) => execFileSync('edge-tts', ['--voice', process.env.TTS_VOICE || 'ru-RU-DmitryNeural',
+      '--rate=+4%', '--pitch=-4Hz', '--text', text, '--write-media', out], { stdio: 'pipe', timeout: 60000 }), '.mp3'],
+  ['RHVoice', () => true, (text, out) => execFileSync('RHVoice-test', ['-p', process.env.RHVOICE_VOICE || 'aleksandr-hq', '-r', '105', '-o', out],
+      { input: text, stdio: ['pipe', 'pipe', 'pipe'], timeout: 60000 }), '.wav'],
+];
+
+// Озвучивает каждую фразу отдельно и склеивает с паузами — так точно известно, где начинается каждая фраза.
+// Возвращает { file, starts } или null.
 function makeVoice(base) {
-  const mp3 = base + '.mp3', wav = base + '.wav';
-  if (process.env.VOICE_FILE && fs.existsSync(process.env.VOICE_FILE)) {      // готовая озвучка, например из ElevenLabs
-    console.log('Озвучка: готовый файл', process.env.VOICE_FILE); return process.env.VOICE_FILE;
+  if (process.env.VOICE_FILE && fs.existsSync(process.env.VOICE_FILE)) {   // готовая озвучка одним файлом
+    console.log('Озвучка: готовый файл', process.env.VOICE_FILE);
+    return { file: process.env.VOICE_FILE, starts: null };
   }
-  if (process.env.ELEVENLABS_API_KEY) {                                       // живой голос ElevenLabs (нужен ключ)
+  for (const [name, ok, synth, ext] of ENGINES) {
+    if (!ok()) continue;
     try {
-      const vid = process.env.ELEVENLABS_VOICE || 'pTNfhcjNOnJJhOy9Jca3';      // Oleg — радостный рекламный голос
-      execFileSync('curl', ['-sS', '--fail', '--max-time', '90', '-o', mp3, '-X', 'POST',
-        `https://api.elevenlabs.io/v1/text-to-speech/${vid}?output_format=mp3_44100_128`,
-        '-H', 'xi-api-key: ' + process.env.ELEVENLABS_API_KEY, '-H', 'Content-Type: application/json',
-        '-d', JSON.stringify({ text: voiceText, model_id: process.env.ELEVENLABS_MODEL || 'eleven_multilingual_v2',
-          voice_settings: { stability: 0.4, similarity_boost: 0.8, style: 0.45, use_speaker_boost: true } })],
-        { stdio: 'pipe', timeout: 100000 });
-      if (duration(mp3) > 1) { console.log('Озвучка: ElevenLabs'); return mp3; }
-    } catch (e) { console.log('ElevenLabs недоступен:', String(e.message).split('\n')[0]); }
+      const files = voiceParts.map((text, i) => { const f = `${base}-${i}${ext}`; synth(text, f); if (duration(f) < 0.3) throw new Error('пустой файл'); return f; });
+      const durs = files.map(duration);
+      const out = base + '.wav';
+      const inputs = files.flatMap(f => ['-i', f]);
+      const chain = files.map((_, i) => `[${i}:a]aresample=44100,aformat=channel_layouts=mono${i < files.length - 1 ? `,apad=pad_dur=${GAP}` : ''}[p${i}]`).join(';')
+        + ';' + files.map((_, i) => `[p${i}]`).join('') + `concat=n=${files.length}:v=0:a=1[a]`;
+      execFileSync('ffmpeg', ['-y', '-loglevel', 'error', ...inputs, '-filter_complex', chain, '-map', '[a]', out]);
+      const starts = []; let acc = 0;
+      durs.forEach(d => { starts.push(acc); acc += d + GAP; });
+      console.log('Озвучка:', name);
+      return { file: out, starts };
+    } catch (e) { console.log(name, 'недоступен:', String(e.message).split('\n')[0]); }
   }
-  try {
-    execFileSync('edge-tts', ['--voice', process.env.TTS_VOICE || 'ru-RU-DmitryNeural', '--rate=+6%',
-      '--text', voiceText, '--write-media', mp3], { stdio: 'pipe', timeout: 60000 });
-    if (duration(mp3) > 1) { console.log('Озвучка: нейроголос Microsoft'); return mp3; }
-  } catch (e) { console.log('edge-tts недоступен:', String(e.message).split('\n')[0]); }
-  try {
-    execFileSync('RHVoice-test', ['-p', process.env.RHVOICE_VOICE || 'aleksandr-hq', '-r', '110', '-o', wav],
-      { input: voiceText, stdio: ['pipe', 'pipe', 'pipe'], timeout: 60000 });
-    if (duration(wav) > 1) { console.log('Озвучка: RHVoice'); return wav; }
-  } catch (e) { console.log('RHVoice недоступен:', String(e.message).split('\n')[0]); }
   console.log('Озвучки нет — ролик будет без голоса');
   return null;
 }
@@ -140,6 +155,38 @@ function caption() {
   ].join('\n');
 }
 
+// ---------- синхронизация сцен с голосом ----------
+const SCENES = [0, 2.8, 5.8, 10, 12.8, BASE];       // начало сцен в ad.html (в секундах из 15)
+const DELAY = 0.35;                                  // голос стартует через 0,35 с
+// Находит 4 самые длинные паузы в озвучке — это границы между 5 фразами.
+function sceneCuts(file, dur) {
+  let out = '';
+  try {
+    out = require('child_process').spawnSync('ffmpeg', ['-hide_banner', '-i', file, '-af', 'silencedetect=noise=-32dB:d=0.18', '-f', 'null', '-'],
+      { encoding: 'utf8' }).stderr;
+  } catch (e) { return null; }
+  const starts = [...out.matchAll(/silence_start: ([\d.]+)/g)].map(m => +m[1]);
+  const ends = [...out.matchAll(/silence_end: ([\d.]+) \| silence_duration: ([\d.]+)/g)].map(m => ({ end: +m[1], len: +m[2] }));
+  const total = duration(file);
+  const gaps = ends.filter(g => g.end < total - 0.3 && g.end - g.len > 0.3)          // не в начале и не в конце
+    .sort((a, b) => b.len - a.len).slice(0, 4).sort((a, b) => a.end - b.end);
+  if (gaps.length < 4) return null;
+  const cuts = [0, ...gaps.map(g => g.end + DELAY - 0.12), dur];                     // сцена появляется чуть до фразы
+  for (let i = 1; i < cuts.length; i++) if (cuts[i] - cuts[i - 1] < 1.2) return null;
+  return cuts;
+}
+// Переводит реальное время ролика во время анимации: каждая сцена растягивается под свою фразу.
+function mapTime(t, cuts, dur) {
+  if (!cuts) return t * BASE / dur;
+  for (let i = 0; i < 5; i++) {
+    if (t <= cuts[i + 1] || i === 4) {
+      const k = (t - cuts[i]) / (cuts[i + 1] - cuts[i]);
+      return SCENES[i] + Math.min(1, Math.max(0, k)) * (SCENES[i + 1] - SCENES[i]);
+    }
+  }
+  return BASE;
+}
+
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
   const mp4 = path.join(OUT, `halyava-${date}.mp4`);
@@ -147,7 +194,9 @@ function caption() {
   fs.writeFileSync(txt, caption() + '\n\n— — —\nТекст озвучки:\n' + voiceText + '\n');
 
   const voice = makeVoice(path.join(OUT, `voice-${date}`));
-  const DUR = voice ? Math.max(BASE, Math.ceil((duration(voice) + 1.3) * 10) / 10) : BASE;
+  const DUR = voice ? Math.max(BASE, Math.ceil((duration(voice.file) + 1.3) * 10) / 10) : BASE;
+  const cuts = !voice ? null : voice.starts ? [0, ...voice.starts.slice(1).map(x => x + DELAY - 0.12), DUR] : sceneCuts(voice.file, DUR);
+  console.log('Смена сцен под голос:', cuts ? cuts.map(x => x.toFixed(2)).join(' · ') : 'равномерно');
   console.log('Длина ролика:', DUR, 'с');
 
   const browser = await chromium.launch();
@@ -158,14 +207,14 @@ function caption() {
 
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error',
     '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
-    ...(voice ? ['-i', voice] : ['-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100']),
+    ...(voice ? ['-i', voice.file] : ['-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100']),
     ...(voice ? ['-filter_complex', '[1:a]adelay=350|350,loudnorm=I=-14:TP=-1.5,apad[a]', '-map', '0:v', '-map', '[a]'] : []),
     '-t', String(DUR), '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'medium', '-crf', '20',
     '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', mp4], { stdio: ['pipe', 'inherit', 'inherit'] });
 
   const frames = FPS * DUR;
   for (let f = 0; f < frames; f++) {
-    await page.evaluate(t => window.render(t), (f / FPS) * BASE / DUR);
+    await page.evaluate(t => window.render(t), mapTime(f / FPS, cuts, DUR));
     const buf = await page.screenshot({ type: 'jpeg', quality: 92 });
     if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
     if (f % 90 === 0) process.stdout.write(`кадр ${f}/${frames}\n`);
