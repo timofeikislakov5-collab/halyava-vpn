@@ -66,10 +66,10 @@ SOURCES = [
 # Все они вместе попадают в одну подписку russia.txt — и для Wi-Fi, и для мобильного, и для белых списков.
 IG = GH + "igareck/vpn-configs-for-russia/main/"
 SOURCES_RU = [
-    ("Белые списки", "russia_white", IG + "Vless-Reality-White-Lists-Rus-Mobile.txt"),
-    ("Моб. интернет", "russia_mobile", IG + "BLACK_VLESS_RUS_mobile.txt"),
+    ("Whitelist", "russia_white", IG + "Vless-Reality-White-Lists-Rus-Mobile.txt"),
+    ("Mobile", "russia_mobile", IG + "BLACK_VLESS_RUS_mobile.txt"),
     ("Wi-Fi", "russia_wifi", IG + "BLACK_VLESS_RUS.txt"),
-    ("Запасной", "russia_reserve", IG + "BLACK_SS+All_RUS.txt"),
+    ("Reserve", "russia_reserve", IG + "BLACK_SS+All_RUS.txt"),
 ]
 VPNGATE_URL = "https://www.vpngate.net/api/iphone/"
 
@@ -430,14 +430,14 @@ def rank(items):
         if i.get("ok") and not i.get("cdn"):
             top += 1
             if top <= TOP_N:
-                i["badge"] = f"🔥 ТОП-{top}"
+                i["badge"] = f"🔥 TOP-{top}"
             elif i.get("ms") and i["ms"] < 150:
                 i["badge"] = "⚡"
             else:
                 i["badge"] = "✅"
         elif i.get("ok"):
             i["badge"] = "☁️"                    # через CDN: доступен, но не проверить до конца
-        elif i.get("tag") == "Белые списки":
+        elif i.get("tag") == "Whitelist":
             i["badge"] = "📱"
         else:
             i["badge"] = "🟡"
@@ -451,7 +451,7 @@ def label(i):
         parts.append(i["tag"])
     parts.append(proto)
     if i.get("ok") and i.get("ms") and not i.get("cdn"):
-        parts.append(f"{i['ms']}мс")
+        parts.append(f"{i['ms']}ms")
     name = " · ".join(parts)
     if i.get("ok") and i.get("streak", 0) >= STABLE:
         name += " ⭐"
@@ -461,9 +461,9 @@ def label(i):
 def write_sub(name, items, title):
     links = [rename(i["link"], label(i)) for i in items]
     header = (f"#profile-title: {title}\n#profile-update-interval: 3\n"
-              f"#Обновлено: {datetime.now(MSK):%d.%m.%Y %H:%M} МСК, серверов: {len(links)}\n"
-              f"#🔥 ТОП — лучшие сейчас · ⚡ быстрый · ⭐ стабильный · ✅ работает · "
-              f"☁️ через CDN · 📱 для белых списков · 🟡 не проверен\n")
+              f"#Updated: {datetime.now(MSK):%d.%m.%Y %H:%M} MSK, servers: {len(links)}\n"
+              f"#🔥 TOP — best now · ⚡ fast · ⭐ stable · ✅ working · "
+              f"☁️ via CDN · 📱 whitelist · 🟡 unchecked\n")
     body = "\n".join(links)
     with open(os.path.join(OUT, name + ".txt"), "w", encoding="utf-8") as f:
         f.write(header + body + "\n")
@@ -522,14 +522,14 @@ def main():
     print("Определяю страны серверов…")
     add_countries(list({id(i): i for i in common + russia + sum(by_proto.values(), [])}.values()))
 
-    stats = {"all": write_sub("all", common, "🆓 Халява VPN — все")}
+    stats = {"all": write_sub("all", common, "Halyava VPN")}
     for tag, fname, _ in SOURCES_RU:
         stats[fname] = write_sub(fname, [i for i in russia if i["group"] == fname][:MAX_RU],
-                                 f"🇷🇺 Халява VPN — {tag}")
+                                 f"Halyava VPN · {tag}")
     # Главная подписка: всё в одной ссылке, лучшие серверы сверху
-    stats["russia"] = write_sub("russia", russia, "🇷🇺 Халява VPN — Wi-Fi + мобильный + белые списки")
+    stats["russia"] = write_sub("russia", russia, "Halyava VPN")
     for proto in ("vless", "vmess", "trojan", "ss"):
-        stats[proto] = write_sub(proto, by_proto[proto], f"🆓 Халява VPN — {FLAG[proto]}")
+        stats[proto] = write_sub(proto, by_proto[proto], f"Halyava VPN · {FLAG[proto]}")
     stats["top"] = [{"name": label(i), "proto": i["proto"], "cc": i.get("cc", ""), "ms": i.get("ms"),
                      "stable": i.get("streak", 0) >= STABLE} for i in russia if i.get("badge", "").startswith("🔥")]
     stats["working"] = sum(1 for i in russia if i.get("ok"))

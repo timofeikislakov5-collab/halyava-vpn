@@ -115,7 +115,7 @@ footer{font-size:13px;color:var(--muted)}
     <p class="muted">В подписке они стоят первыми. Список пересчитывается каждые 3 часа.</p>
     <ol class="top" id="toplist"></ol>
     <div class="legend">
-      <span>🔥 ТОП — лучшие сейчас</span><span>⚡ быстрый</span><span>⭐ стабильный 12+ часов</span>
+      <span>🔥 TOP — лучшие сейчас</span><span>⚡ быстрый</span><span>⭐ стабильный 12+ часов</span>
       <span>✅ работает</span><span>☁️ через CDN</span><span>📱 для белых списков</span><span>🟡 не проверен</span>
     </div>
   </section>
@@ -196,7 +196,7 @@ fetch('vpn/sub/stats.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{
   top.forEach((t,n)=>{
     const li=document.createElement('li');
     const rk=document.createElement('span'); rk.className='rk'; rk.textContent=n+1;
-    const nm=document.createElement('span'); nm.className='nm'; nm.textContent=t.name.replace(/^🔥 ТОП-\d+\s*/,'').split(' · ').filter(x=>!/мс$/.test(x)).join(' · ');
+    const nm=document.createElement('span'); nm.className='nm'; nm.textContent=t.name.replace(/^🔥 TOP-\d+\s*/,'').split(' · ').filter(x=>!/ms$/.test(x)).join(' · ');
     const ms=document.createElement('span'); ms.className='ms'; ms.textContent=t.ms?t.ms+' мс':'';
     li.append(rk,nm,ms); ol.append(li);
   });
