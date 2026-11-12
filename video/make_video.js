@@ -128,7 +128,18 @@ const TAGS = ['#vpn', '#впн', '#бесплатныйвпн', '#halyavavpn', '
 
 function caption() {
   const extra = TAGS.slice(6); const tags = [...TAGS.slice(0, 6), ...extra.map((_, k) => extra[(k + dayN) % extra.length]).slice(0, 6)];
+  // TikTok: не больше 5 хэштегов, ссылки не кликабельны — «ссылка в профиле»
+  const tt5 = ['#впн', '#бесплатныйвпн', '#vpn', '#halyavavpn', ['#лайфхак', '#полезное', '#интернет', '#смартфон', '#рекомендации'][dayN % 5]];
+  const tiktok = [
+    `🎵 TIKTOK (5 хэштегов)`,
+    `${th.title} Сотни серверов в одной ссылке, лучшие всегда сверху. Бесплатно, без регистрации 👉 ссылка в профиле`,
+    tt5.join(' '),
+    ``,
+    `— — —`,
+    `📸 REELS / VK КЛИПЫ / SHORTS`,
+  ];
   return [
+    ...tiktok,
     `${th.title}`,
     ``,
     `${th.text}`,
