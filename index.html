@@ -66,6 +66,15 @@ ol.steps li::before{content:counter(s);font-family:var(--display);font-size:14px
 footer{font-size:13px;color:var(--muted)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px}
 @media (prefers-reduced-motion:no-preference){button{transition:transform .1s}button:active{transform:scale(.98)}}
+.top{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 0;margin:0;list-style:none}
+.top li{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 16px;border-top:1px solid var(--line)}
+.top li:first-child{border-top:0}
+.top .rk{font-family:var(--display);font-size:14px;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.top li:nth-child(-n+3) .rk{background:var(--accent);color:var(--accent-ink)}
+.top .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top .ms{font-family:var(--mono);font-size:13px;color:var(--ok);font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.legend span{font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
 </style>
 </head>
 <body>
@@ -99,6 +108,16 @@ footer{font-size:13px;color:var(--muted)}
       <p class="muted">Shadowsocks и другие протоколы. Пригодится, если VLESS у вас не работает.</p>
       <div class="meta"><span>SS · Trojan · VMess</span><span>~80 серверов</span></div>
     </article>
+  </section>
+
+  <section id="best" style="display:flex;flex-direction:column;gap:14px" hidden>
+    <h2>Лучшие серверы сейчас</h2>
+    <p class="muted">В подписке они стоят первыми. Список пересчитывается каждые 3 часа.</p>
+    <ol class="top" id="toplist"></ol>
+    <div class="legend">
+      <span>🔥 ТОП — лучшие сейчас</span><span>⚡ быстрый</span><span>⭐ стабильный 12+ часов</span>
+      <span>✅ работает</span><span>☁️ через CDN</span><span>📱 для белых списков</span><span>🟡 не проверен</span>
+    </div>
   </section>
 
   <section style="display:flex;flex-direction:column;gap:14px">
@@ -168,6 +187,21 @@ document.querySelectorAll('.sub').forEach((card,n)=>{
   });
 });
 </script>
-<script>fetch('vpn/sub/stats.json').then(r=>r.json()).then(j=>{document.getElementById('cnt').textContent=j.russia+' серверов';document.querySelector('.status').lastChild.textContent='обновлено '+j.updated}).catch(()=>{})</script>
+<script>
+fetch('vpn/sub/stats.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{
+  document.getElementById('cnt').textContent=j.russia+' серверов';
+  document.querySelector('.status').lastChild.textContent='обновлено '+j.updated+' · работают '+(j.working??'—');
+  const top=j.top||[]; if(!top.length) return;
+  const ol=document.getElementById('toplist');
+  top.forEach((t,n)=>{
+    const li=document.createElement('li');
+    const rk=document.createElement('span'); rk.className='rk'; rk.textContent=n+1;
+    const nm=document.createElement('span'); nm.className='nm'; nm.textContent=t.name.replace(/^🔥 ТОП-\d+\s*/,'').split(' · ').filter(x=>!/мс$/.test(x)).join(' · ');
+    const ms=document.createElement('span'); ms.className='ms'; ms.textContent=t.ms?t.ms+' мс':'';
+    li.append(rk,nm,ms); ol.append(li);
+  });
+  document.getElementById('best').hidden=false;
+}).catch(()=>{});
+</script>
 </body>
 </html>

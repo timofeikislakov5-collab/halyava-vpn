@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "halyava-vpn"
           git config user.email "halyava-vpn@users.noreply.github.com"
-          git add vpn/sub vpn/openvpn 2>/dev/null || git add vpn/sub
+          git add vpn/sub vpn/history.json vpn/geo.json; git add vpn/openvpn 2>/dev/null || true
           git diff --cached --quiet || git commit -m "VPN: обновлены серверы"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push

@@ -22,6 +22,7 @@
 """
 import base64
 import csv
+import hashlib
 import html
 import io
 import ipaddress
@@ -29,6 +30,7 @@ import json
 import os
 import re
 import socket
+import ssl
 import sys
 import time
 import urllib.parse
@@ -198,28 +200,185 @@ def prepare(links):
     return items
 
 
-# ---------- проверка ----------
+# ---------- проверка и рейтинг ----------
 
-def ping(item):
+def params(item):
+    """Тип защиты (reality / tls / none), транспорт и SNI сервера."""
+    link = item["link"]
+    if item["proto"] == "vmess":
+        j = vmess_json(link) or {}
+        sec = "tls" if j.get("tls") == "tls" else "none"
+        return sec, j.get("net") or "tcp", j.get("sni") or j.get("host") or ""
+    q = dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(link).query))
+    sec = (q.get("security") or "").lower()
+    if item["proto"] in ("trojan", "hysteria2", "tuic") and sec in ("", "none"):
+        sec = "tls"
+    return sec or "none", (q.get("type") or "tcp").lower(), q.get("sni") or q.get("host") or ""
+
+
+def probe(item):
+    """Подключается к серверу и, если он с TLS/Reality, проходит TLS-рукопожатие.
+    Так отсеиваются не только выключенные серверы, но и «полуживые», которые
+    принимают подключение, но не отвечают как VPN."""
+    sec, net, sni = params(item)
+    item.update(sec=sec, net=net)
     t = time.time()
     try:
-        with socket.create_connection((item["host"], item["port"]), timeout=CHECK_TIMEOUT):
-            item["ms"] = int((time.time() - t) * 1000)
+        with socket.create_connection((item["host"], item["port"]), timeout=CHECK_TIMEOUT) as sock:
+            item["ms"] = max(1, int((time.time() - t) * 1000))
+            item["ip"] = sock.getpeername()[0]
+            if sec in ("tls", "reality"):
+                ctx = ssl.create_default_context()
+                ctx.check_hostname = False
+                ctx.verify_mode = ssl.CERT_NONE
+                sock.settimeout(CHECK_TIMEOUT)
+                with ctx.wrap_socket(sock, server_hostname=sni or None):
+                    pass
+        item["ok"] = True
     except Exception:
+        item["ok"] = False
         item["ms"] = None
     return item
 
 
+# Адреса CDN (Cloudflare, Fastly и др.): они отвечают всегда, даже если сам VPN за ними
+# выключен, поэтому такие серверы не попадают в ТОП и не считаются «быстрыми».
+CDN_NETS = [ipaddress.ip_network(n) for n in (
+    "104.16.0.0/13", "104.24.0.0/14", "172.64.0.0/13", "162.158.0.0/15", "188.114.96.0/20",
+    "141.101.64.0/18", "108.162.192.0/18", "190.93.240.0/20", "197.234.240.0/22", "198.41.128.0/17",
+    "173.245.48.0/20", "103.21.244.0/22", "103.22.200.0/22", "103.31.4.0/22", "131.0.72.0/22",
+    "151.101.0.0/16", "199.232.0.0/16", "146.75.0.0/16", "23.235.32.0/20", "43.249.72.0/22")]
+
+
+def is_cdn(ip):
+    try:
+        a = ipaddress.ip_address(ip)
+        return any(a in n for n in CDN_NETS)
+    except Exception:
+        return False
+
+
 def check(items):
-    # UDP-протоколы (hysteria2, tuic) по TCP не проверить — оставляем без пинга в конце списка
     tcp = [i for i in items if i["proto"] not in ("hysteria2", "tuic")][:MAX_CHECK]
     udp = [i for i in items if i["proto"] in ("hysteria2", "tuic")]
     with ThreadPoolExecutor(200) as ex:
-        alive = [i for i in ex.map(ping, tcp) if i["ms"] is not None]
-    alive.sort(key=lambda i: i["ms"])
-    for i in udp:
-        i["ms"] = None
-    return alive, udp[:50]
+        list(ex.map(probe, tcp))
+    for i in tcp:
+        i["cdn"] = is_cdn(i.get("ip") or i["host"])
+    for i in udp:                      # UDP-протоколы так не проверить
+        i.update(ok=None, ms=None, sec="tls", net="udp")
+    return tcp + udp[:50]
+
+
+PROTO_SCORE = {("vless", "reality"): 40, ("vless", "tls"): 30, ("trojan", "tls"): 26,
+               ("vmess", "tls"): 20, ("hysteria2", "tls"): 18, ("tuic", "tls"): 16,
+               ("ss", "none"): 14, ("vless", "none"): 8, ("vmess", "none"): 8}
+
+
+def score(i):
+    sc = PROTO_SCORE.get((i["proto"], i.get("sec")), 10)
+    if i["port"] == 443:
+        sc += 5
+    if i.get("net") in ("grpc", "xhttp", "ws", "httpupgrade", "splithttp"):
+        sc += 3
+    sc += min(i.get("streak", 0), 10) * 3          # стабильно живёт много проверок подряд
+    sc += min(i.get("sources", 1) - 1, 3) * 5      # встречается в нескольких списках
+    if i.get("cdn"):
+        sc -= 25                                   # за CDN не видно, жив ли сам сервер
+    elif i.get("ms"):
+        sc -= min(i["ms"] // 20, 30)               # чем быстрее отвечает, тем выше
+    if i.get("ok") is False:
+        sc -= 200
+    elif i.get("ok") is None:
+        sc -= 100
+    return sc
+
+
+# ---------- история (стабильность) ----------
+
+HISTORY = os.path.join(ROOT, "history.json")
+STABLE = 4          # живой 4 проверки подряд (~12 часов) — «стабильный»
+
+
+def hkey(item):
+    return hashlib.sha1(repr(dedup_key(item["link"])).encode()).hexdigest()[:12]
+
+
+def apply_history(items):
+    try:
+        with open(HISTORY, encoding="utf-8") as f:
+            hist = json.load(f)
+    except Exception:
+        hist = {}
+    now = int(time.time())
+    for i in items:
+        k = hkey(i)
+        h = hist.get(k, {"streak": 0})
+        if i.get("ok"):
+            h["streak"] = h.get("streak", 0) + 1
+        elif i.get("ok") is False:
+            h["streak"] = 0
+        h["t"] = now
+        hist[k] = h
+        i["streak"] = h["streak"]
+    hist = {k: v for k, v in hist.items() if now - v.get("t", 0) < 3 * 86400}
+    with open(HISTORY, "w", encoding="utf-8") as f:
+        json.dump(hist, f, separators=(",", ":"))
+
+
+# ---------- страна сервера ----------
+
+GEO = os.path.join(ROOT, "geo.json")
+
+
+def resolve(host):
+    try:
+        ipaddress.ip_address(host)
+        return host
+    except ValueError:
+        try:
+            return socket.gethostbyname(host)
+        except Exception:
+            return None
+
+
+def add_countries(items):
+    try:
+        with open(GEO, encoding="utf-8") as f:
+            geo = json.load(f)
+    except Exception:
+        geo = {}
+    socket.setdefaulttimeout(5)
+    with ThreadPoolExecutor(50) as ex:
+        ips = list(ex.map(lambda i: i.get("ip") or resolve(i["host"]), items))
+    socket.setdefaulttimeout(None)
+    for i, ip in zip(items, ips):
+        i["ip"] = ip
+    need = sorted({ip for ip in ips if ip and ip not in geo})
+    for n in range(0, min(len(need), 1400), 100):     # бесплатный ip-api: 100 адресов за запрос
+        try:
+            body = json.dumps([{"query": ip, "fields": "countryCode,query"} for ip in need[n:n + 100]]).encode()
+            req = urllib.request.Request("http://ip-api.com/batch", data=body, headers=UA)
+            with urllib.request.urlopen(req, timeout=20) as r:
+                for row in json.loads(r.read().decode()):
+                    if row.get("countryCode"):
+                        geo[row["query"]] = row["countryCode"]
+            time.sleep(4.5)                              # не больше 15 запросов в минуту
+        except Exception as e:
+            print(f"  ! страны не определились: {e}")
+            break
+    for i in items:
+        i["cc"] = geo.get(i.get("ip") or "", "")
+    if len(geo) > 20000:
+        geo = dict(list(geo.items())[-20000:])
+    with open(GEO, "w", encoding="utf-8") as f:
+        json.dump(geo, f, separators=(",", ":"))
+
+
+def flag(cc):
+    if len(cc) != 2 or not cc.isalpha():
+        return "🌐"
+    return "".join(chr(0x1F1E6 + ord(c) - 65) for c in cc.upper())
 
 
 # ---------- VPN Gate (OpenVPN) ----------
@@ -258,14 +417,53 @@ FLAG = {"vless": "VLESS", "vmess": "VMess", "trojan": "Trojan", "ss": "SS",
         "ssr": "SSR", "hysteria2": "Hy2", "tuic": "TUIC"}
 
 
+TOP_N = 10
+
+
+def rank(items):
+    """Сортирует серверы и вешает значки: 🔥 ТОП, ⚡ быстрый, ⭐ стабильный, ✅ работает."""
+    for i in items:
+        i["score"] = score(i)
+    items.sort(key=lambda i: -i["score"])
+    top = 0
+    for i in items:
+        if i.get("ok") and not i.get("cdn"):
+            top += 1
+            if top <= TOP_N:
+                i["badge"] = f"🔥 ТОП-{top}"
+            elif i.get("ms") and i["ms"] < 150:
+                i["badge"] = "⚡"
+            else:
+                i["badge"] = "✅"
+        elif i.get("ok"):
+            i["badge"] = "☁️"                    # через CDN: доступен, но не проверить до конца
+        elif i.get("tag") == "Белые списки":
+            i["badge"] = "📱"
+        else:
+            i["badge"] = "🟡"
+    return items
+
+
+def label(i):
+    proto = "Reality" if i.get("sec") == "reality" else FLAG.get(i["proto"], i["proto"])
+    parts = [f"{i.get('badge', '✅')} {flag(i.get('cc', ''))}"]
+    if i.get("tag"):
+        parts.append(i["tag"])
+    parts.append(proto)
+    if i.get("ok") and i.get("ms") and not i.get("cdn"):
+        parts.append(f"{i['ms']}мс")
+    name = " · ".join(parts)
+    if i.get("ok") and i.get("streak", 0) >= STABLE:
+        name += " ⭐"
+    return name
+
+
 def write_sub(name, items, title):
-    links = []
-    for n, i in enumerate(items, 1):
-        ms = f" {i['ms']}ms" if i.get("ms") else ""
-        tag = f"{i['tag']} | " if i.get("tag") else ""
-        links.append(rename(i["link"], f"Халява {n} | {tag}{FLAG.get(i['proto'], i['proto'])}{ms}"))
+    links = [rename(i["link"], label(i)) for i in items]
     header = (f"#profile-title: {title}\n#profile-update-interval: 3\n"
-              f"#Обновлено: {datetime.now(MSK):%d.%m.%Y %H:%M} МСК, серверов: {len(links)}\n")
+              f"#Обновлено: {datetime.now(MSK):%d.%m.%Y %H:%M} МСК, серверов: {len(links)}\n"
+              f"#🔥 ТОП — лучшие сейчас · ⚡ быстрый · ⭐ стабильный · ✅ работает · "
+              f"☁️ через CDN · 📱 для белых списков · 🟡 не проверен\n")
     body = "\n".join(links)
     with open(os.path.join(OUT, name + ".txt"), "w", encoding="utf-8") as f:
         f.write(header + body + "\n")
@@ -279,40 +477,62 @@ def main():
     os.makedirs(OUT, exist_ok=True)
 
     print("Скачиваю общие списки:")
-    common = prepare(load(SOURCES))
+    raw = load(SOURCES)
+    common = prepare(raw)
+    counts = {}
+    for l in raw:                                   # в скольких списках встречается сервер
+        k = dedup_key(l)
+        counts[k] = counts.get(k, 0) + 1
+    for i in common:
+        i["sources"] = counts.get(dedup_key(i["link"]), 1)
+
     print("Скачиваю списки для России:")
-    groups, seen = [], set()
+    russia, seen = [], set()
     for tag, fname, url in SOURCES_RU:
-        part = []
         for i in prepare(load([url])):
             k = dedup_key(i["link"])
             if k not in seen:            # один сервер — только в одной группе
                 seen.add(k)
                 i["tag"] = tag
-                part.append(i)
-        groups.append((tag, fname, part))
-    print(f"Уникальных: общие {len(common)}, для России {sum(len(g[2]) for g in groups)}")
+                i["group"] = fname
+                russia.append(i)
+    print(f"Уникальных: общие {len(common)}, для России {len(russia)}")
 
-    common_udp = []
     if do_check:
-        print("Проверяю серверы…")
+        print("Проверяю серверы (подключение + TLS-рукопожатие)…")
         t = time.time()
-        common, common_udp = check(common)
-        # Российские списки не проверяем: серверы для белых списков стоят в РФ и не отвечают
-        # на проверку с зарубежных серверов GitHub, а автор списков проверяет их сам.
-        print(f"Живых: общие {len(common)}, для России {sum(len(g[2]) for g in groups)} ({int(time.time() - t)} c)")
+        common = check(common)
+        russia = check(russia)
+        print(f"Отвечают: общие {sum(1 for i in common if i.get('ok'))}, "
+              f"для России {sum(1 for i in russia if i.get('ok'))} из {len(russia)} "
+              f"({int(time.time() - t)} c)")
+        # Неответившие российские серверы НЕ выкидываем: серверы для белых списков стоят в РФ
+        # и часто не отвечают на проверку из-за границы, но у пользователей в России работают.
+        common = [i for i in common if i.get("ok") is not False]
+        apply_history(common + russia)
+    else:
+        for i in common + russia:
+            i["ok"] = None
+            i["sec"], i["net"], _ = params(i)
 
-    stats = {"all": write_sub("all", common[:MAX_SERVERS] + common_udp, "🆓 Халява VPN — все")}
-    russia = []
-    for tag, fname, part in groups:
-        part = part[:MAX_RU]
-        stats[fname] = write_sub(fname, part, f"🇷🇺 Халява VPN — {tag}")
-        russia += part
-    # Главная подписка: Wi-Fi + мобильный интернет + белые списки + запасные — всё в одной ссылке
+    common = rank(common)
+    by_proto = {p: [i for i in common if i["proto"] == p][:MAX_PER_PROTO] for p in ("vless", "vmess", "trojan", "ss")}
+    common = common[:MAX_SERVERS]
+    russia = rank(russia)
+    print("Определяю страны серверов…")
+    add_countries(list({id(i): i for i in common + russia + sum(by_proto.values(), [])}.values()))
+
+    stats = {"all": write_sub("all", common, "🆓 Халява VPN — все")}
+    for tag, fname, _ in SOURCES_RU:
+        stats[fname] = write_sub(fname, [i for i in russia if i["group"] == fname][:MAX_RU],
+                                 f"🇷🇺 Халява VPN — {tag}")
+    # Главная подписка: всё в одной ссылке, лучшие серверы сверху
     stats["russia"] = write_sub("russia", russia, "🇷🇺 Халява VPN — Wi-Fi + мобильный + белые списки")
     for proto in ("vless", "vmess", "trojan", "ss"):
-        part = [i for i in common if i["proto"] == proto][:MAX_PER_PROTO]
-        stats[proto] = write_sub(proto, part, f"🆓 Халява VPN — {FLAG[proto]}")
+        stats[proto] = write_sub(proto, by_proto[proto], f"🆓 Халява VPN — {FLAG[proto]}")
+    stats["top"] = [{"name": label(i), "proto": i["proto"], "cc": i.get("cc", ""), "ms": i.get("ms"),
+                     "stable": i.get("streak", 0) >= STABLE} for i in russia if i.get("badge", "").startswith("🔥")]
+    stats["working"] = sum(1 for i in russia if i.get("ok"))
 
     print("Скачиваю VPN Gate:")
     ovpn = vpngate()
@@ -331,7 +551,7 @@ def main():
     with open(os.path.join(OUT, "stats.json"), "w", encoding="utf-8") as f:
         json.dump(stats, f, ensure_ascii=False, indent=2)
     print("Готово:", stats)
-    if stats["all"] == 0 and do_check:
+    if not common and do_check:
         print("Ни одного рабочего сервера — что-то не так с источниками или сетью.")
         sys.exit(1)
 
