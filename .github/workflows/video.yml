@@ -28,6 +28,8 @@ jobs:
           npx playwright@1.49.1 install --with-deps chromium
 
       - name: Сделать ролик
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         run: node video/make_video.js
 
       - name: Выложить ролик в Releases

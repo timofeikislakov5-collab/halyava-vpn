@@ -71,6 +71,21 @@ function duration(file) {
 // Сначала нейроголос Microsoft (edge-tts), если недоступен — RHVoice, если и его нет — без голоса.
 function makeVoice(base) {
   const mp3 = base + '.mp3', wav = base + '.wav';
+  if (process.env.VOICE_FILE && fs.existsSync(process.env.VOICE_FILE)) {      // готовая озвучка, например из ElevenLabs
+    console.log('Озвучка: готовый файл', process.env.VOICE_FILE); return process.env.VOICE_FILE;
+  }
+  if (process.env.ELEVENLABS_API_KEY) {                                       // живой голос ElevenLabs (нужен ключ)
+    try {
+      const vid = process.env.ELEVENLABS_VOICE || 'pTNfhcjNOnJJhOy9Jca3';      // Oleg — радостный рекламный голос
+      execFileSync('curl', ['-sS', '--fail', '--max-time', '90', '-o', mp3, '-X', 'POST',
+        `https://api.elevenlabs.io/v1/text-to-speech/${vid}?output_format=mp3_44100_128`,
+        '-H', 'xi-api-key: ' + process.env.ELEVENLABS_API_KEY, '-H', 'Content-Type: application/json',
+        '-d', JSON.stringify({ text: voiceText, model_id: process.env.ELEVENLABS_MODEL || 'eleven_multilingual_v2',
+          voice_settings: { stability: 0.4, similarity_boost: 0.8, style: 0.45, use_speaker_boost: true } })],
+        { stdio: 'pipe', timeout: 100000 });
+      if (duration(mp3) > 1) { console.log('Озвучка: ElevenLabs'); return mp3; }
+    } catch (e) { console.log('ElevenLabs недоступен:', String(e.message).split('\n')[0]); }
+  }
   try {
     execFileSync('edge-tts', ['--voice', process.env.TTS_VOICE || 'ru-RU-DmitryNeural', '--rate=+6%',
       '--text', voiceText, '--write-media', mp3], { stdio: 'pipe', timeout: 60000 });
