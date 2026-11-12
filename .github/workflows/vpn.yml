@@ -1,0 +1,42 @@
+name: Халява VPN — обновление серверов
+
+on:
+  schedule:
+    - cron: "41 */3 * * *"   # каждые 3 часа
+  workflow_dispatch:          # кнопка «Run workflow» для ручного запуска
+  push:
+    branches: [main]
+    paths: ["vpn/collect.py", ".github/workflows/vpn.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vpn-collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Собрать и проверить серверы
+        env:
+          MAX_SERVERS: "500"
+          CHECK_TIMEOUT: "3"
+        run: python vpn/collect.py
+
+      - name: Сохранить подписки
+        run: |
+          git config user.name "halyava-vpn"
+          git config user.email "halyava-vpn@users.noreply.github.com"
+          git add vpn/sub vpn/openvpn 2>/dev/null || git add vpn/sub
+          git diff --cached --quiet || git commit -m "VPN: обновлены серверы"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push

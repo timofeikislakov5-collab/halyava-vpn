@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Халява VPN</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+body{margin:0}
+/* Layout: одна узкая колонка как в мобильном приложении — шапка, подписки-карточки, шаги, предупреждение */
+:root{
+  --bg:#eef1f6; --surface:#ffffff; --ink:#121826; --muted:#5a6478; --line:#d7dde8;
+  --accent:#2f5bff; --accent-ink:#ffffff; --accent-soft:#e3e9ff; --ok:#14804a; --warn:#a35a00; --warn-soft:#fff3e0;
+  --display:"Unbounded","Manrope",system-ui,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c111c; --surface:#151c2b; --ink:#e8ecf5; --muted:#98a2b8; --line:#26304a;
+  --accent:#6d8bff; --accent-ink:#0c111c; --accent-soft:#1d2747; --ok:#4cc38a; --warn:#f0a648; --warn-soft:#2a2112; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c111c; --surface:#151c2b; --ink:#e8ecf5; --muted:#98a2b8; --line:#26304a;
+  --accent:#6d8bff; --accent-ink:#0c111c; --accent-soft:#1d2747; --ok:#4cc38a; --warn:#f0a648; --warn-soft:#2a2112; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(30px,8vw,44px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:500}
+p{margin:0}
+.muted{color:var(--muted)}
+header{display:flex;flex-direction:column;gap:12px}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;color:var(--ok)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block;box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 20%,transparent)}
+.lead{font-size:17px;max-width:60ch}
+
+.subs{display:flex;flex-direction:column;gap:14px}
+.sub{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.sub.main{border:2px solid var(--accent)}
+.sub-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.sub h3{margin:0;font-size:18px;font-weight:700}
+.tag{font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.url{font-family:var(--mono);font-size:12.5px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;overflow-wrap:anywhere;user-select:all;color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{font:600 15px var(--body);border-radius:10px;padding:12px 16px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1 1 140px}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.qr{display:flex;justify-content:center;padding:14px;background:#ffffff;border-radius:10px;align-self:center}
+.qr[hidden]{display:none!important}
+
+.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.app{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.app b{display:block}
+.app span{font-size:14px;color:var(--muted)}
+
+ol.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
+ol.steps li::before{content:counter(s);font-family:var(--display);font-size:14px;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.warn{background:var(--warn-soft);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.warn h2{color:var(--warn);font-size:16px}
+.warn ul{margin:0;padding-left:20px}
+footer{font-size:13px;color:var(--muted)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px}
+@media (prefers-reduced-motion:no-preference){button{transition:transform .1s}button:active{transform:scale(.98)}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="status"><i></i>серверы обновляются каждые 3 часа</span>
+    <h1>Халява VPN</h1>
+    <p class="lead">Бесплатные VPN-серверы одной ссылкой. Скопируйте подписку, вставьте её в Happ — и подключайтесь. Новые серверы приложение подтянет само.</p>
+  </header>
+
+  <section class="subs" aria-label="Подписки">
+    <article class="sub main" data-url="https://raw.githubusercontent.com/timofeikislakov5-collab/halyava-vpn/main/vpn/sub/russia.txt">
+      <div class="sub-top"><h3>Всё сразу</h3><span class="tag">рекомендуем</span></div>
+      <p class="muted">Одна ссылка: Wi-Fi, мобильный интернет, белые списки и запасные серверы. В названии каждого сервера написано, для чего он.</p>
+      <div class="meta"><span>Wi-Fi</span><span>Мобильный</span><span>Белые списки</span><span>Запасные</span><span id="cnt"></span></div>
+    </article>
+    <p class="muted" style="font-size:14px">Или по отдельности:</p>
+    <article class="sub" data-url="https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/main/BLACK_VLESS_RUS.txt">
+      <div class="sub-top"><h3>Wi-Fi и домашний интернет</h3><span class="tag">VLESS</span></div>
+      <p class="muted">Серверы VLESS Reality, которые работают при блокировках в РФ.</p>
+      <div class="meta"><span>VLESS</span><span>~380 серверов</span></div>
+    </article>
+    <article class="sub" data-url="https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/main/Vless-Reality-White-Lists-Rus-Mobile.txt">
+      <div class="sub-top"><h3>Мобильный интернет</h3><span class="tag">белые списки</span></div>
+      <p class="muted">Когда у оператора открываются только разрешённые сайты, а основная подписка не подключается.</p>
+      <div class="meta"><span>VLESS Reality</span><span>~80 серверов</span></div>
+    </article>
+    <article class="sub" data-url="https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/main/BLACK_SS+All_RUS.txt">
+      <div class="sub-top"><h3>Запасная</h3><span class="tag">если не помогло</span></div>
+      <p class="muted">Shadowsocks и другие протоколы. Пригодится, если VLESS у вас не работает.</p>
+      <div class="meta"><span>SS · Trojan · VMess</span><span>~80 серверов</span></div>
+    </article>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:14px">
+    <h2>Как подключиться в Happ</h2>
+    <ol class="steps">
+      <li><p>Установите <b>Happ</b> из App Store или Google Play.</p></li>
+      <li><p>Нажмите <b>«Скопировать все ссылки»</b> в карточке «Всё сразу».</p></li>
+      <li><p>В Happ нажмите <b>+</b> в правом верхнем углу и выберите <b>«Вставить из буфера»</b>.</p></li>
+      <li><p>Нажмите на значок обновления, затем <b>«Проверить пинг»</b>. Выберите сервер с самым маленьким числом.</p></li>
+      <li><p>Нажмите большую кнопку подключения. Если сервер не открывает сайты, выберите следующий.</p></li>
+    </ol>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:14px">
+    <h2>Другие приложения</h2>
+    <p class="muted">Ссылки подходят и для них — вставляются так же, через «+» и импорт из буфера.</p>
+    <div class="apps">
+      <div class="app"><b>Happ</b><span>iPhone, Android</span></div>
+      <div class="app"><b>v2RayTun</b><span>iPhone, Android</span></div>
+      <div class="app"><b>Streisand</b><span>iPhone, Mac</span></div>
+      <div class="app"><b>v2rayNG</b><span>Android</span></div>
+      <div class="app"><b>Hiddify</b><span>Android, Windows, Mac</span></div>
+    </div>
+  </section>
+
+  <section class="warn">
+    <h2>Перед подключением</h2>
+    <ul>
+      <li>Это чужие бесплатные публичные серверы. Они работают от нескольких часов до нескольких дней, поэтому список обновляется.</li>
+      <li>Владелец сервера может видеть ваш трафик. Не входите через этот VPN в банк, Госуслуги и почту.</li>
+      <li>Скорость не гарантирована: если тормозит, переключитесь на сервер с меньшим пингом.</li>
+    </ul>
+  </section>
+
+  <footer>Серверы собраны из открытых публичных списков, которые их владельцы раздают бесплатно. Платных и чужих аккаунтов здесь нет.</footer>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const toast = document.getElementById('toast');
+let tt;
+function say(t){toast.textContent=t;toast.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toast.hidden=true,2200)}
+
+document.querySelectorAll('.sub').forEach((card,n)=>{
+  const url = card.dataset.url.trim();
+  const many = url.includes('\n');
+  const box = document.createElement('div'); box.className='url'; box.style.whiteSpace='pre-line'; box.textContent=url;
+  const row = document.createElement('div'); row.className='row';
+  const copy = document.createElement('button'); copy.className='primary'; copy.type='button'; copy.id='copy'+n; copy.textContent= many ? 'Скопировать все ссылки' : 'Скопировать ссылку';
+  const open = document.createElement('a'); open.className='btn'; open.href='happ://add/'+url.split('\n')[0]; open.textContent='Открыть в Happ';
+  const qrBtn = document.createElement('button'); qrBtn.type='button'; qrBtn.id='qr'+n; qrBtn.textContent='QR-код';
+  const qr = document.createElement('div'); qr.className='qr'; qr.hidden=true;
+  if(many){ row.append(copy); } else { row.append(copy,open,qrBtn); }
+  card.append(box,row,qr);
+
+  copy.addEventListener('click',()=>{
+    const sel=()=>{const r=document.createRange();r.selectNodeContents(box);const s=getSelection();s.removeAllRanges();s.addRange(r)};
+    try{
+      navigator.clipboard.writeText(url).then(()=>say('Ссылка скопирована. Вставьте её в Happ'),()=>{sel();say('Ссылка выделена — скопируйте её вручную')});
+    }catch(e){sel();say('Ссылка выделена — скопируйте её вручную')}
+  });
+  qrBtn.addEventListener('click',()=>{
+    if(!qr.dataset.done && window.QRCode){new QRCode(qr,{text:url,width:200,height:200,correctLevel:QRCode.CorrectLevel.M});qr.dataset.done='1'}
+    qr.hidden=!qr.hidden;
+    qrBtn.textContent = qr.hidden ? 'QR-код' : 'Скрыть QR';
+  });
+});
+</script>
+<script>fetch('vpn/sub/stats.json').then(r=>r.json()).then(j=>{document.getElementById('cnt').textContent=j.russia+' серверов';document.querySelector('.status').lastChild.textContent='обновлено '+j.updated}).catch(()=>{})</script>
+</body>
+</html>
