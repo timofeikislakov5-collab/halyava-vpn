@@ -6,8 +6,9 @@
   "russia_reserve": 28,
   "russia": 431,
   "vless": 300,
-  "vmess": 128,
-  "trojan": 236,
-  "ss": 123,
-  "updated": "12.11.2026 16:28 МСК"
+  "vmess": 241,
+  "trojan": 300,
+  "ss": 300,
+  "openvpn": 30,
+  "updated": "12.11.2026 16:29 МСК"
 }

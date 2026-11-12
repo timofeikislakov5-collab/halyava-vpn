@@ -1,6 +1,6 @@
 #profile-title: 🇷🇺 Халява VPN — Моб. интернет
 #profile-update-interval: 3
-#Обновлено: 12.11.2026 16:28 МСК, серверов: 134
+#Обновлено: 12.11.2026 16:29 МСК, серверов: 134
 vless://67cd3349-f789-4cbb-8b91-4b6b1654ce7c@151.101.36.111:443?alpn=h3&encryption=none&host=ovd11.global.ssl.fastly.net&mode=auto&path=%2F&security=tls&sni=accounts.fastly.com&type=xhttp&fp=edge#%D0%A5%D0%B0%D0%BB%D1%8F%D0%B2%D0%B0%201%20%7C%20%D0%9C%D0%BE%D0%B1.%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%20%7C%20VLESS
 vless://67cd3349-f789-4cbb-8b91-4b6b1654ce7c@151.101.36.111:443?encryption=none&extra={#%D0%A5%D0%B0%D0%BB%D1%8F%D0%B2%D0%B0%202%20%7C%20%D0%9C%D0%BE%D0%B1.%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%20%7C%20VLESS
 vless://67cd3349-f789-4cbb-8b91-4b6b1654ce7c@151.101.36.111:443?security=tls&sni=accounts.fastly.com&alpn=h3&fp=chrome&type=xhttp&host=ovd11.global.ssl.fastly.net&path=%2F&mode=auto&encryption=none#%D0%A5%D0%B0%D0%BB%D1%8F%D0%B2%D0%B0%203%20%7C%20%D0%9C%D0%BE%D0%B1.%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%20%7C%20VLESS
