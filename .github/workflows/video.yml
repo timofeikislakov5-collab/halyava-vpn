@@ -1,0 +1,39 @@
+name: Halyava VPN — ролик дня
+
+on:
+  schedule:
+    - cron: "23 5 * * *"     # каждый день в 08:23 по Москве
+  workflow_dispatch:          # кнопка «Run workflow» — сделать ролик прямо сейчас
+
+permissions:
+  contents: write
+
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Установить Chromium, ffmpeg и шрифты
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-color-emoji
+          npm i --no-save playwright@1.49.1
+          npx playwright@1.49.1 install --with-deps chromium
+
+      - name: Сделать ролик
+        run: node video/make_video.js
+
+      - name: Выложить ролик в Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          D=$(TZ=Europe/Moscow date +%F)
+          gh release delete "video-$D" -y --cleanup-tag 2>/dev/null || true
+          gh release create "video-$D" video/out/halyava-$D.mp4 video/out/halyava-$D.txt \
+            --title "🎬 Ролик дня $D" --notes-file video/out/halyava-$D.txt --latest

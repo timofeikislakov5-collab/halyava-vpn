@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Halyava VPN — рекламный ролик</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@500;700;800&family=JetBrains+Mono:wght@600&display=swap">
+<style>
+/* Вертикальный ролик 1080×1920, 15 секунд, 5 сцен. Каждый кадр рисуется функцией render(t). */
+:root{
+  --bg:#070b18; --ink:#f3f6ff; --muted:#9aa6c6; --a1:#4d7bff; --a2:#30e0c8; --hot:#ff8a3d; --ok:#41d39a;
+  --display:"Unbounded","Inter",system-ui,sans-serif; --body:"Manrope","Inter",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--body)}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(40px);opacity:.75}
+#g1{width:900px;height:900px;background:radial-gradient(closest-side,var(--a1),transparent);top:-250px;right:-300px}
+#g2{width:800px;height:800px;background:radial-gradient(closest-side,var(--a2),transparent);bottom:-260px;left:-280px;opacity:.5}
+#grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:90px 90px}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 80px;text-align:center;opacity:0}
+.brand{position:absolute;top:110px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:18px;font-family:var(--display);font-weight:800;font-size:44px;letter-spacing:.01em}
+.logo{width:72px;height:72px;border-radius:20px;background:var(--a1);display:grid;place-items:center}
+/* scene 1 — hook */
+#hook{font-family:var(--display);font-weight:900;font-size:136px;line-height:1.02;letter-spacing:-.02em;text-wrap:balance}
+#hook em{font-style:normal;background:linear-gradient(90deg,var(--a1),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+#hooksub{margin-top:48px;font-size:52px;font-weight:700;color:var(--muted)}
+/* scene 2 — numbers */
+.big{font-family:var(--display);font-weight:900;font-size:300px;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#fff,#b9c8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bigl{font-size:60px;font-weight:800;margin-top:10px}
+.pill{margin-top:60px;display:inline-flex;align-items:center;gap:20px;font-family:var(--mono);font-size:40px;color:#7ff0c9;
+  background:rgba(127,240,201,.1);border:2px solid rgba(127,240,201,.35);padding:20px 34px;border-radius:999px}
+.pill i{width:22px;height:22px;border-radius:50%;background:var(--ok)}
+/* scene 3 — phone */
+.phone{width:820px;border-radius:90px;background:#0f1730;border:6px solid #26335a;padding:60px 40px;display:flex;flex-direction:column;gap:22px;
+  box-shadow:0 60px 120px -40px rgba(77,123,255,.6)}
+.ph-h{font-family:var(--display);font-weight:800;font-size:46px;text-align:left;margin-bottom:10px}
+.row{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:22px;background:#16203d;border-radius:28px;padding:22px 26px;text-align:left}
+.rk{width:84px;height:84px;border-radius:24px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:38px;background:#22305a;color:#a9bbff}
+.row:nth-child(2) .rk{background:linear-gradient(135deg,#ffd36a,#ff8a3d);color:#2a1600}
+.row:nth-child(3) .rk{background:linear-gradient(135deg,#eef2f9,#aab6cc);color:#1b2333}
+.row:nth-child(4) .rk{background:linear-gradient(135deg,#f3be96,#c27645);color:#2a1300}
+.nm{font-size:40px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tp{font-size:28px;color:var(--muted);font-weight:700}
+.sg{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:32px}
+.bars{display:flex;align-items:flex-end;gap:5px;height:40px}
+.bars i{width:10px;border-radius:3px;background:#2a3762}
+.bars i:nth-child(1){height:12px}.bars i:nth-child(2){height:22px}.bars i:nth-child(3){height:31px}.bars i:nth-child(4){height:40px}
+.bars i.on{background:var(--ok)}
+/* scene 4 — steps */
+.st-h{font-family:var(--display);font-weight:900;font-size:96px;margin-bottom:70px}
+.step{display:flex;align-items:center;gap:36px;width:900px;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.1);border-radius:40px;padding:40px 44px;margin-bottom:34px;text-align:left}
+.step b{flex:none;width:110px;height:110px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:52px;background:var(--a1)}
+.step span{font-size:54px;font-weight:800;line-height:1.15}
+/* scene 5 — cta */
+.cta-h{font-family:var(--display);font-weight:900;font-size:122px;line-height:1;letter-spacing:-.03em}
+.cta-h em{font-style:normal;background:linear-gradient(90deg,var(--a1),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cta-b{margin-top:60px;font-size:58px;font-weight:800;background:#fff;color:#0b1020;padding:34px 60px;border-radius:999px}
+.cta-u{margin-top:50px;font-family:var(--mono);font-size:36px;color:var(--muted)}
+.tags{margin-top:40px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.tags span{font-size:36px;font-weight:700;padding:14px 28px;border-radius:999px;border:2px solid rgba(255,255,255,.18)}
+#bar{position:absolute;left:0;bottom:0;height:12px;background:linear-gradient(90deg,var(--a1),var(--a2))}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="glow" id="g1"></div><div class="glow" id="g2"></div><div id="grid"></div>
+  <div class="brand" id="brand"><span class="logo"><svg width="40" height="40" viewBox="0 0 18 18"><rect x="1" y="11" width="4" height="6" rx="1" fill="#fff"/><rect x="7" y="6" width="4" height="11" rx="1" fill="#fff"/><rect x="13" y="1" width="4" height="16" rx="1" fill="#fff"/></svg></span>Halyava VPN</div>
+
+  <section class="scene" id="s1"><h1 id="hook"></h1><p id="hooksub"></p></section>
+
+  <section class="scene" id="s2">
+    <div class="big" id="cnt">0</div>
+    <div class="bigl" id="cntl">серверов в одной ссылке</div>
+    <div class="pill"><i></i><span id="okl"></span></div>
+  </section>
+
+  <section class="scene" id="s3">
+    <div class="phone" id="phone"><div class="ph-h">🔥 Лучшие сейчас</div></div>
+  </section>
+
+  <section class="scene" id="s4">
+    <h2 class="st-h">3 шага</h2>
+    <div class="step" id="st1"><b>1</b><span>Скопируй ссылку</span></div>
+    <div class="step" id="st2"><b>2</b><span>Вставь в Happ</span></div>
+    <div class="step" id="st3"><b>3</b><span>Жми «Подключить»</span></div>
+  </section>
+
+  <section class="scene" id="s5">
+    <h2 class="cta-h">Бесплатно.<br><em id="ctaw">Навсегда.</em></h2>
+    <div class="cta-b" id="ctab">Ссылка в профиле 👆</div>
+    <div class="cta-u" id="ctau"></div>
+    <div class="tags"><span>Wi-Fi</span><span>Мобильный</span><span>Белые списки</span></div>
+  </section>
+  <div id="bar"></div>
+</div>
+
+<script>
+// Данные подставляет make_video.js через window.AD; здесь — значения по умолчанию для предпросмотра.
+const AD = Object.assign({
+  hook: 'VPN за <em>0 ₽</em>', sub: 'Без подписки. Без регистрации.',
+  total: 431, working: 398, updated: '16:42', url: 'timofeikislakov5-collab.github.io/halyava-vpn',
+  cta: 'Ссылка в профиле 👆', ctaWord: 'Навсегда.', a1: '#4d7bff', a2: '#30e0c8',
+  top: [{cc:'US',tag:'Wi-Fi',type:'Reality',ms:89},{cc:'US',tag:'Wi-Fi',type:'Reality',ms:81},{cc:'JP',tag:'Wi-Fi',type:'VLESS',ms:106},
+        {cc:'DE',tag:'Mobile',type:'VLESS',ms:134},{cc:'RU',tag:'Whitelist',type:'Reality',ms:190}]
+}, window.AD || {});
+const DUR = 15;
+const $ = id => document.getElementById(id);
+document.documentElement.style.setProperty('--a1', AD.a1);
+document.documentElement.style.setProperty('--a2', AD.a2);
+$('hook').innerHTML = AD.hook; $('hooksub').textContent = AD.sub;
+$('okl').textContent = AD.working + ' работают прямо сейчас';
+$('ctab').textContent = AD.cta; $('ctau').textContent = AD.url; $('ctaw').textContent = AD.ctaWord;
+const TAG = {'Wi-Fi':'Wi-Fi','Mobile':'Мобильный','Whitelist':'Белые списки','Reserve':'Запасной'};
+const flag = cc => cc && cc.length===2 ? String.fromCodePoint(...[...cc.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65)) : '🌐';
+const rows = AD.top.slice(0,7).map((t,n)=>{
+  const r=document.createElement('div'); r.className='row';
+  const bars=!t.ms?0:t.ms<80?4:t.ms<140?3:t.ms<220?2:1;
+  r.innerHTML='<span class="rk"></span><div><div class="nm"></div><div class="tp"></div></div><div class="sg"><span class="bars">'+
+    [1,2,3,4].map(k=>'<i'+(k<=bars?' class="on"':'')+'></i>').join('')+'</span><span class="ms"></span></div>';
+  r.querySelector('.rk').textContent=n+1;
+  r.querySelector('.nm').textContent=flag(t.cc)+' '+(TAG[t.tag]||t.tag||'');
+  r.querySelector('.tp').textContent=(t.type||'')+(t.stable?' · ⭐ stable':'');
+  r.querySelector('.ms').textContent=t.ms?t.ms+' мс':'';
+  $('phone').append(r); return r;
+});
+
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>1-Math.pow(1-clamp(x),3);
+const back=x=>{x=clamp(x);const c=1.70158;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+// окно сцены: появляется за 0.35 с, исчезает за 0.3 с
+function vis(t,a,b){ return clamp(Math.min((t-a)/.35,(b-t)/.3)) }
+function set(el,o,tr){ el.style.opacity=o; el.style.transform=tr||'' }
+
+window.render = function(t){
+  $('bar').style.width = (t/DUR*100)+'%';
+  $('g1').style.transform = `translate(${Math.sin(t*.6)*60}px,${Math.cos(t*.5)*50}px)`;
+  $('g2').style.transform = `translate(${Math.cos(t*.4)*70}px,${Math.sin(t*.7)*40}px)`;
+  $('brand').style.opacity = t<2.6 ? clamp((t-.2)/.4) : t>12.6 ? 1 : clamp(1-(t-2.6)/.3);
+  // 1. хук 0–2.8
+  const v1=vis(t,0,2.8), s1=back((t-.05)/.5);
+  set($('s1'), v1, `scale(${.6+.4*s1}) rotate(${(1-s1)*-4}deg)`);
+  $('hooksub').style.opacity = clamp((t-.7)/.4); $('hooksub').style.transform=`translateY(${(1-ease((t-.7)/.4))*40}px)`;
+  // 2. цифры 2.8–5.8
+  const v2=vis(t,2.8,5.8); set($('s2'), v2, `scale(${.9+.1*ease((t-2.8)/.5)})`);
+  $('cnt').textContent = Math.round(AD.total*ease((t-2.9)/1.4));
+  // 3. ТОП 5.8–10
+  const v3=vis(t,5.8,10); set($('s3'), v3, `translateY(${(1-ease((t-5.8)/.6))*300}px)`);
+  rows.forEach((r,n)=>{ const p=ease((t-6.2-n*.22)/.4); r.style.opacity=p; r.style.transform=`translateX(${(1-p)*-160}px)`; });
+  // 4. шаги 10–12.8
+  const v4=vis(t,10,12.8); set($('s4'), v4);
+  ['st1','st2','st3'].forEach((id,n)=>{ const p=back((t-10.25-n*.4)/.45); $(id).style.opacity=clamp(p); $(id).style.transform=`scale(${.7+.3*p})`; });
+  // 5. призыв 12.8–15
+  const v5=clamp((t-12.8)/.35); const p5=back((t-12.8)/.55);
+  set($('s5'), v5, `scale(${.8+.2*p5})`);
+  $('ctab').style.transform=`scale(${1+Math.max(0,Math.sin((t-13.4)*6))*.05*(t>13.4?1:0)})`;
+};
+window.render(0);
+</script>
+</body>
+</html>
