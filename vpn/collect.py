@@ -531,6 +531,7 @@ def main():
     for proto in ("vless", "vmess", "trojan", "ss"):
         stats[proto] = write_sub(proto, by_proto[proto], f"Halyava VPN · {FLAG[proto]}")
     stats["top"] = [{"name": label(i), "proto": i["proto"], "cc": i.get("cc", ""), "ms": i.get("ms"),
+                     "tag": i.get("tag", ""), "type": "Reality" if i.get("sec") == "reality" else FLAG.get(i["proto"], i["proto"]),
                      "stable": i.get("streak", 0) >= STABLE} for i in russia if i.get("badge", "").startswith("🔥")]
     stats["working"] = sum(1 for i in russia if i.get("ok"))
 
