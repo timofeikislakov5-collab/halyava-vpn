@@ -22,7 +22,8 @@ jobs:
       - name: Установить Chromium, ffmpeg и шрифты
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-color-emoji
+          sudo apt-get install -y -qq ffmpeg fonts-noto-color-emoji rhvoice rhvoice-russian || sudo apt-get install -y -qq ffmpeg fonts-noto-color-emoji
+          pip install -q edge-tts
           npm i --no-save playwright@1.49.1
           npx playwright@1.49.1 install --with-deps chromium
 
