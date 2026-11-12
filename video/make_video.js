@@ -93,7 +93,8 @@ const ENGINES = [
 function makeVoice(base) {
   if (process.env.VOICE_FILE && fs.existsSync(process.env.VOICE_FILE)) {   // готовая озвучка одним файлом
     console.log('Озвучка: готовый файл', process.env.VOICE_FILE);
-    return { file: process.env.VOICE_FILE, starts: null };
+    const st = (process.env.VOICE_STARTS || '').split(',').map(Number).filter(n => !isNaN(n));
+    return { file: process.env.VOICE_FILE, starts: st.length === 5 ? st : null };   // VOICE_STARTS — начала 5 фраз, с
   }
   for (const [name, ok, synth, ext] of ENGINES) {
     if (!ok()) continue;
