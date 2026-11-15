@@ -1,107 +1,107 @@
 {
   "all": 500,
   "russia_white": 150,
-  "russia_mobile": 116,
-  "russia_wifi": 49,
-  "russia_reserve": 25,
-  "russia": 340,
+  "russia_mobile": 150,
+  "russia_wifi": 200,
+  "russia_reserve": 90,
+  "russia": 1212,
   "vless": 300,
-  "vmess": 231,
+  "vmess": 232,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇷🇺 · Whitelist · VLESS · 126ms ⭐",
+      "name": "🔥 TOP-1 🇷🇺 · Whitelist · VLESS · 149ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 126,
+      "ms": 149,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-2 🇷🇺 · Whitelist · VLESS · 171ms ⭐",
+      "name": "🔥 TOP-2 🇷🇺 · Whitelist · VLESS · 145ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 171,
+      "ms": 145,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-3 🇷🇺 · Whitelist · VLESS · 196ms ⭐",
+      "name": "🔥 TOP-3 🇷🇺 · Whitelist · VLESS · 145ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 196,
+      "ms": 145,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-4 🇷🇺 · Whitelist · VLESS · 248ms ⭐",
+      "name": "🔥 TOP-4 🇷🇺 · Whitelist · VLESS · 147ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 248,
+      "ms": 147,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-5 🇷🇺 · Whitelist · VLESS · 245ms ⭐",
+      "name": "🔥 TOP-5 🇷🇺 · Whitelist · VLESS · 156ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 245,
+      "ms": 156,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-6 🇷🇺 · Whitelist · VLESS · 252ms ⭐",
+      "name": "🔥 TOP-6 🇷🇺 · Whitelist · VLESS · 177ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 252,
+      "ms": 177,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 249ms ⭐",
+      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 178ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 249,
+      "ms": 178,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-8 🇷🇺 · Whitelist · VLESS · 275ms ⭐",
+      "name": "🔥 TOP-8 🇷🇺 · Whitelist · VLESS · 176ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 275,
+      "ms": 176,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-9 🇷🇺 · Whitelist · VLESS · 291ms ⭐",
+      "name": "🔥 TOP-9 🇷🇺 · Whitelist · VLESS · 177ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 291,
+      "ms": 177,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-10 🇷🇺 · Whitelist · VLESS · 287ms ⭐",
+      "name": "🔥 TOP-10 🇷🇺 · Whitelist · VLESS · 182ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 287,
+      "ms": 182,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     }
   ],
-  "working": 296,
+  "working": 1162,
   "openvpn": 30,
-  "updated": "15.11.2026 04:47 МСК"
+  "updated": "15.11.2026 07:33 МСК"
 }
