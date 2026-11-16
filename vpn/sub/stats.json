@@ -1,107 +1,107 @@
 {
   "all": 500,
-  "russia_white": 110,
-  "russia_mobile": 150,
+  "russia_white": 150,
+  "russia_mobile": 148,
   "russia_wifi": 200,
   "russia_reserve": 75,
-  "russia": 700,
+  "russia": 733,
   "vless": 300,
-  "vmess": 215,
+  "vmess": 212,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇬🇧 · Wi-Fi · Reality · 273ms ⭐",
+      "name": "🔥 TOP-1 🇬🇧 · Wi-Fi · Reality · 258ms ⭐",
       "proto": "vless",
       "cc": "GB",
-      "ms": 273,
+      "ms": 258,
       "tag": "Wi-Fi",
       "type": "Reality",
       "stable": true
     },
     {
-      "name": "🔥 TOP-2 🇺🇸 · Wi-Fi · VLESS · 118ms ⭐",
+      "name": "🔥 TOP-2 🇺🇸 · Wi-Fi · VLESS · 99ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 118,
+      "ms": 99,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-3 🇷🇺 · Whitelist · VLESS · 235ms ⭐",
+      "name": "🔥 TOP-3 🇬🇧 · Wi-Fi · Reality · 298ms ⭐",
       "proto": "vless",
-      "cc": "RU",
-      "ms": 235,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-4 🇷🇺 · Whitelist · VLESS · 255ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 255,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-5 🇷🇺 · Whitelist · VLESS · 247ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 247,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-6 🇷🇺 · Whitelist · VLESS · 250ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 250,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 272ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 272,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-8 🇷🇺 · Whitelist · VLESS · 273ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 273,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-9 🇷🇺 · Whitelist · VLESS · 298ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
+      "cc": "GB",
       "ms": 298,
+      "tag": "Wi-Fi",
+      "type": "Reality",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-4 🇷🇺 · Whitelist · Reality · 369ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 369,
+      "tag": "Whitelist",
+      "type": "Reality",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-5 🇬🇧 · Wi-Fi · Reality · 150ms ⭐",
+      "proto": "vless",
+      "cc": "GB",
+      "ms": 150,
+      "tag": "Wi-Fi",
+      "type": "Reality",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-6 🇷🇺 · Whitelist · VLESS · 95ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 95,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-10 🇷🇺 · Whitelist · VLESS · 298ms ⭐",
+      "name": "🔥 TOP-7 🇮🇪 · Mobile · VLESS · 126ms ⭐",
       "proto": "vless",
-      "cc": "RU",
-      "ms": 298,
-      "tag": "Whitelist",
+      "cc": "IE",
+      "ms": 126,
+      "tag": "Mobile",
       "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-8 🇺🇸 · Wi-Fi · Reality · 231ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 231,
+      "tag": "Wi-Fi",
+      "type": "Reality",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-9 🇳🇬 · Wi-Fi · Reality · 394ms ⭐",
+      "proto": "vless",
+      "cc": "NG",
+      "ms": 394,
+      "tag": "Wi-Fi",
+      "type": "Reality",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-10 🇬🇧 · Wi-Fi · Reality · 591ms ⭐",
+      "proto": "vless",
+      "cc": "GB",
+      "ms": 591,
+      "tag": "Wi-Fi",
+      "type": "Reality",
       "stable": true
     }
   ],
-  "working": 589,
+  "working": 576,
   "openvpn": 30,
-  "updated": "16.11.2026 12:24 МСК"
+  "updated": "16.11.2026 14:00 МСК"
 }
