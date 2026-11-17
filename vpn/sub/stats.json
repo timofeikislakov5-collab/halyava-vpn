@@ -1,107 +1,107 @@
 {
   "all": 500,
-  "russia_white": 121,
-  "russia_mobile": 150,
+  "russia_white": 150,
+  "russia_mobile": 149,
   "russia_wifi": 200,
-  "russia_reserve": 85,
-  "russia": 1112,
+  "russia_reserve": 57,
+  "russia": 620,
   "vless": 300,
-  "vmess": 209,
+  "vmess": 212,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇷🇺 · Whitelist · VLESS · 36ms ⭐",
+      "name": "🔥 TOP-1 🇷🇺 · Whitelist · VLESS · 159ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 36,
+      "ms": 159,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-2 🇷🇺 · Whitelist · VLESS · 43ms ⭐",
+      "name": "🔥 TOP-2 🇷🇺 · Whitelist · VLESS · 145ms ⭐",
       "proto": "vless",
       "cc": "RU",
-      "ms": 43,
+      "ms": 145,
       "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-3 🇷🇺 · Whitelist · VLESS · 42ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 42,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-4 🇷🇺 · Whitelist · Reality · 282ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 282,
-      "tag": "Whitelist",
-      "type": "Reality",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-5 🇷🇺 · Whitelist · VLESS · 47ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 47,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-6 🇷🇺 · Whitelist · VLESS · 42ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 42,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 43ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 43,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-8 🇬🇧 · Mobile · VLESS · 132ms ⭐",
+      "name": "🔥 TOP-3 🇬🇧 · Wi-Fi · VLESS · 162ms ⭐",
       "proto": "vless",
       "cc": "GB",
-      "ms": 132,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-9 🇸🇨 · Wi-Fi · VLESS · 18ms ⭐",
-      "proto": "vless",
-      "cc": "SC",
-      "ms": 18,
+      "ms": 162,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-10 🇸🇨 · Wi-Fi · VLESS · 17ms ⭐",
+      "name": "🔥 TOP-4 🇷🇺 · Whitelist · VLESS · 196ms ⭐",
       "proto": "vless",
-      "cc": "SC",
-      "ms": 17,
-      "tag": "Wi-Fi",
+      "cc": "RU",
+      "ms": 196,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-5 🇷🇺 · Whitelist · VLESS · 196ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 196,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-6 🇷🇺 · Whitelist · VLESS · 194ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 194,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 183ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 183,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-8 🇷🇺 · Whitelist · VLESS · 203ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 203,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-9 🇷🇺 · Whitelist · VLESS · 152ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 152,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-10 🇷🇺 · Whitelist · VLESS · 236ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 236,
+      "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     }
   ],
-  "working": 1064,
+  "working": 591,
   "openvpn": 30,
-  "updated": "17.11.2026 07:36 МСК"
+  "updated": "17.11.2026 10:56 МСК"
 }
