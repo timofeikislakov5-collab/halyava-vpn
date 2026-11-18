@@ -1,107 +1,107 @@
 {
   "all": 500,
-  "russia_white": 111,
-  "russia_mobile": 70,
-  "russia_wifi": 5,
-  "russia_reserve": 20,
-  "russia": 206,
+  "russia_white": 61,
+  "russia_mobile": 148,
+  "russia_wifi": 39,
+  "russia_reserve": 28,
+  "russia": 276,
   "vless": 300,
-  "vmess": 201,
+  "vmess": 198,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇺🇸 · Mobile · VLESS · 6ms ⭐",
+      "name": "🔥 TOP-1 🇺🇸 · Wi-Fi · VLESS · 25ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 6,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-2 🇺🇸 · Mobile · VLESS · 15ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 15,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-3 🇺🇸 · Mobile · VLESS · 10ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 10,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-4 🇺🇸 · Mobile · VLESS · 6ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 6,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-5 🇺🇸 · Wi-Fi · VLESS · 7ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 7,
+      "ms": 25,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-6 🇺🇸 · Mobile · VLESS · 26ms ⭐",
+      "name": "🔥 TOP-2 🇺🇸 · Mobile · VLESS · 51ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 26,
+      "ms": 51,
       "tag": "Mobile",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 220ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 220,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-8 🇷🇺 · Whitelist · VLESS · 240ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 240,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-9 🇷🇺 · Whitelist · VLESS · 207ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 207,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-10 🇺🇸 · Mobile · VLESS · 25ms ⭐",
+      "name": "🔥 TOP-3 🇺🇸 · Mobile · VLESS · 53ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 25,
+      "ms": 53,
       "tag": "Mobile",
       "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-4 🇺🇸 · Mobile · VLESS · 51ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 51,
+      "tag": "Mobile",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-5 🇩🇪 · Mobile · Reality · 154ms ⭐",
+      "proto": "vless",
+      "cc": "DE",
+      "ms": 154,
+      "tag": "Mobile",
+      "type": "Reality",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-6 🇩🇪 · Mobile · Reality · 157ms ⭐",
+      "proto": "vless",
+      "cc": "DE",
+      "ms": 157,
+      "tag": "Mobile",
+      "type": "Reality",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-7 🇺🇸 · Mobile · VLESS · 51ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 51,
+      "tag": "Mobile",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-8 🇩🇪 · Mobile · Reality · 158ms ⭐",
+      "proto": "vless",
+      "cc": "DE",
+      "ms": 158,
+      "tag": "Mobile",
+      "type": "Reality",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-9 🇺🇸 · Mobile · VMess · 12ms ⭐",
+      "proto": "vmess",
+      "cc": "US",
+      "ms": 12,
+      "tag": "Mobile",
+      "type": "VMess",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-10 🇺🇸 · Mobile · VMess · 102ms ⭐",
+      "proto": "vmess",
+      "cc": "US",
+      "ms": 102,
+      "tag": "Mobile",
+      "type": "VMess",
       "stable": true
     }
   ],
-  "working": 154,
+  "working": 237,
   "openvpn": 30,
-  "updated": "18.11.2026 19:40 МСК"
+  "updated": "18.11.2026 22:38 МСК"
 }
