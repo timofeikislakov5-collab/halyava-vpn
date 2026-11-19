@@ -1,107 +1,107 @@
 {
   "all": 500,
-  "russia_white": 24,
-  "russia_mobile": 131,
-  "russia_wifi": 46,
-  "russia_reserve": 41,
-  "russia": 242,
+  "russia_white": 115,
+  "russia_mobile": 117,
+  "russia_wifi": 80,
+  "russia_reserve": 35,
+  "russia": 347,
   "vless": 300,
-  "vmess": 196,
+  "vmess": 200,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇺🇸 · Mobile · VLESS · 15ms ⭐",
-      "proto": "vless",
+      "name": "🔥 TOP-1 🇺🇸 · Reserve · Trojan · 16ms ⭐",
+      "proto": "trojan",
       "cc": "US",
-      "ms": 15,
+      "ms": 16,
+      "tag": "Reserve",
+      "type": "Trojan",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-2 🇺🇸 · Reserve · Trojan · 38ms ⭐",
+      "proto": "trojan",
+      "cc": "US",
+      "ms": 38,
+      "tag": "Reserve",
+      "type": "Trojan",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-3 🇺🇸 · Reserve · Trojan · 33ms ⭐",
+      "proto": "trojan",
+      "cc": "US",
+      "ms": 33,
+      "tag": "Reserve",
+      "type": "Trojan",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-4 🇺🇸 · Reserve · Trojan · 72ms ⭐",
+      "proto": "trojan",
+      "cc": "US",
+      "ms": 72,
+      "tag": "Reserve",
+      "type": "Trojan",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-5 🇺🇸 · Mobile · Trojan · 34ms ⭐",
+      "proto": "trojan",
+      "cc": "US",
+      "ms": 34,
       "tag": "Mobile",
-      "type": "VLESS",
+      "type": "Trojan",
       "stable": true
     },
     {
-      "name": "🔥 TOP-2 🇺🇸 · Mobile · VLESS · 11ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 11,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-3 🇺🇸 · Reserve · Trojan · 15ms ⭐",
+      "name": "🔥 TOP-6 🇺🇸 · Reserve · Trojan · 97ms ⭐",
       "proto": "trojan",
       "cc": "US",
-      "ms": 15,
+      "ms": 97,
       "tag": "Reserve",
       "type": "Trojan",
       "stable": true
     },
     {
-      "name": "🔥 TOP-4 🇺🇸 · Reserve · Trojan · 32ms ⭐",
+      "name": "🔥 TOP-7 🇺🇸 · Reserve · Trojan · 80ms ⭐",
       "proto": "trojan",
       "cc": "US",
-      "ms": 32,
+      "ms": 80,
       "tag": "Reserve",
       "type": "Trojan",
       "stable": true
     },
     {
-      "name": "🔥 TOP-5 🇺🇸 · Reserve · Trojan · 45ms ⭐",
-      "proto": "trojan",
-      "cc": "US",
-      "ms": 45,
-      "tag": "Reserve",
-      "type": "Trojan",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-6 🇺🇸 · Reserve · Trojan · 35ms ⭐",
-      "proto": "trojan",
-      "cc": "US",
-      "ms": 35,
-      "tag": "Reserve",
-      "type": "Trojan",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-7 🇺🇸 · Reserve · Trojan · 62ms ⭐",
-      "proto": "trojan",
-      "cc": "US",
-      "ms": 62,
-      "tag": "Reserve",
-      "type": "Trojan",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-8 🇺🇸 · Mobile · VMess · 7ms ⭐",
+      "name": "🔥 TOP-8 🇺🇸 · Mobile · VMess · 11ms ⭐",
       "proto": "vmess",
       "cc": "US",
-      "ms": 7,
+      "ms": 11,
       "tag": "Mobile",
       "type": "VMess",
       "stable": true
     },
     {
-      "name": "🔥 TOP-9 🇺🇸 · Wi-Fi · VLESS · 11ms ⭐",
-      "proto": "vless",
+      "name": "🔥 TOP-9 🇺🇸 · Mobile · VMess · 28ms ⭐",
+      "proto": "vmess",
       "cc": "US",
-      "ms": 11,
-      "tag": "Wi-Fi",
-      "type": "VLESS",
+      "ms": 28,
+      "tag": "Mobile",
+      "type": "VMess",
       "stable": true
     },
     {
-      "name": "🔥 TOP-10 🇺🇸 · Mobile · Trojan · 5ms ⭐",
+      "name": "🔥 TOP-10 🇺🇸 · Reserve · Trojan · 71ms ⭐",
       "proto": "trojan",
       "cc": "US",
-      "ms": 5,
-      "tag": "Mobile",
+      "ms": 71,
+      "tag": "Reserve",
       "type": "Trojan",
       "stable": true
     }
   ],
-  "working": 209,
+  "working": 274,
   "openvpn": 30,
-  "updated": "19.11.2026 19:40 МСК"
+  "updated": "19.11.2026 22:41 МСК"
 }
