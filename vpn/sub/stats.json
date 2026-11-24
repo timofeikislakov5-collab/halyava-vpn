@@ -1,107 +1,107 @@
 {
   "all": 500,
   "russia_white": 101,
-  "russia_mobile": 139,
-  "russia_wifi": 77,
-  "russia_reserve": 23,
-  "russia": 340,
+  "russia_mobile": 126,
+  "russia_wifi": 115,
+  "russia_reserve": 26,
+  "russia": 368,
   "vless": 300,
-  "vmess": 282,
+  "vmess": 288,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇺🇸 · Mobile · VLESS · 12ms ⭐",
+      "name": "🔥 TOP-1 🇷🇺 · Whitelist · VLESS · 37ms ⭐",
       "proto": "vless",
-      "cc": "US",
-      "ms": 12,
-      "tag": "Mobile",
+      "cc": "RU",
+      "ms": 37,
+      "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-2 🇺🇸 · Mobile · Trojan · 27ms ⭐",
+      "name": "🔥 TOP-2 🇷🇺 · Whitelist · VLESS · 39ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 39,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-3 🇷🇺 · Whitelist · VLESS · 58ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 58,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-4 🇷🇺 · Whitelist · VLESS · 41ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 41,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-5 🇷🇺 · Whitelist · VLESS · 41ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 41,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-6 🇷🇺 · Whitelist · VLESS · 39ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 39,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 25ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 25,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-8 🇸🇦 · Mobile · Trojan · 5ms ⭐",
       "proto": "trojan",
-      "cc": "US",
-      "ms": 27,
+      "cc": "SA",
+      "ms": 5,
       "tag": "Mobile",
       "type": "Trojan",
       "stable": true
     },
     {
-      "name": "🔥 TOP-3 🇺🇸 · Wi-Fi · VLESS · 10ms ⭐",
+      "name": "🔥 TOP-9 🇺🇸 · Mobile · VLESS · 16ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 10,
-      "tag": "Wi-Fi",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-4 🇺🇸 · Wi-Fi · VLESS · 13ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 13,
-      "tag": "Wi-Fi",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-5 🇺🇸 · Wi-Fi · VLESS · 3ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 3,
-      "tag": "Wi-Fi",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-6 🇺🇸 · Mobile · VLESS · 98ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 98,
+      "ms": 16,
       "tag": "Mobile",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 133ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 133,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-8 🇺🇸 · Mobile · VLESS · 93ms ⭐",
+      "name": "🔥 TOP-10 🇺🇸 · Mobile · VLESS · 6ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 93,
+      "ms": 6,
       "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-9 🇷🇺 · Whitelist · VLESS · 108ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 108,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-10 🇷🇺 · Whitelist · VLESS · 99ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 99,
-      "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     }
   ],
-  "working": 296,
+  "working": 338,
   "openvpn": 30,
-  "updated": "24.11.2026 22:40 МСК"
+  "updated": "25.11.2026 01:35 МСК"
 }
