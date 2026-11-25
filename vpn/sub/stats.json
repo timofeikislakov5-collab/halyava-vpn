@@ -1,107 +1,107 @@
 {
   "all": 500,
   "russia_white": 101,
-  "russia_mobile": 126,
-  "russia_wifi": 115,
-  "russia_reserve": 26,
-  "russia": 368,
+  "russia_mobile": 136,
+  "russia_wifi": 158,
+  "russia_reserve": 70,
+  "russia": 465,
   "vless": 300,
-  "vmess": 288,
+  "vmess": 289,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇷🇺 · Whitelist · VLESS · 37ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 37,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-2 🇷🇺 · Whitelist · VLESS · 39ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 39,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-3 🇷🇺 · Whitelist · VLESS · 58ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 58,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-4 🇷🇺 · Whitelist · VLESS · 41ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 41,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-5 🇷🇺 · Whitelist · VLESS · 41ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 41,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-6 🇷🇺 · Whitelist · VLESS · 39ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 39,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-7 🇷🇺 · Whitelist · VLESS · 25ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 25,
-      "tag": "Whitelist",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-8 🇸🇦 · Mobile · Trojan · 5ms ⭐",
+      "name": "🔥 TOP-1 🇺🇸 · Mobile · Trojan · 14ms ⭐",
       "proto": "trojan",
-      "cc": "SA",
-      "ms": 5,
+      "cc": "US",
+      "ms": 14,
       "tag": "Mobile",
       "type": "Trojan",
       "stable": true
     },
     {
-      "name": "🔥 TOP-9 🇺🇸 · Mobile · VLESS · 16ms ⭐",
+      "name": "🔥 TOP-2 🇺🇸 · Mobile · VLESS · 11ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 16,
+      "ms": 11,
       "tag": "Mobile",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-10 🇺🇸 · Mobile · VLESS · 6ms ⭐",
+      "name": "🔥 TOP-3 🇺🇸 · Wi-Fi · VLESS · 18ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 6,
+      "ms": 18,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-4 🇺🇸 · Wi-Fi · VLESS · 15ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 15,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-5 🇺🇸 · Wi-Fi · VLESS · 17ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 17,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-6 🇺🇸 · Wi-Fi · VLESS · 22ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 22,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-7 🇸🇦 · Reserve · Trojan · 54ms ⭐",
+      "proto": "trojan",
+      "cc": "SA",
+      "ms": 54,
+      "tag": "Reserve",
+      "type": "Trojan",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-8 🇷🇺 · Whitelist · VLESS · 144ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 144,
+      "tag": "Whitelist",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-9 🇺🇸 · Mobile · VLESS · 109ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 109,
       "tag": "Mobile",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-10 🇷🇺 · Whitelist · VLESS · 153ms ⭐",
+      "proto": "vless",
+      "cc": "RU",
+      "ms": 153,
+      "tag": "Whitelist",
       "type": "VLESS",
       "stable": true
     }
   ],
-  "working": 338,
+  "working": 427,
   "openvpn": 30,
-  "updated": "25.11.2026 01:35 МСК"
+  "updated": "25.11.2026 04:59 МСК"
 }
