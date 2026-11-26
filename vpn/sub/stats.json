@@ -1,107 +1,107 @@
 {
   "all": 500,
-  "russia_white": 0,
-  "russia_mobile": 150,
+  "russia_white": 99,
+  "russia_mobile": 141,
   "russia_wifi": 200,
-  "russia_reserve": 66,
-  "russia": 857,
+  "russia_reserve": 30,
+  "russia": 668,
   "vless": 300,
-  "vmess": 245,
+  "vmess": 248,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇸🇨 · Mobile · VLESS · 13ms ⭐",
-      "proto": "vless",
-      "cc": "SC",
-      "ms": 13,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-2 🇺🇸 · Mobile · VLESS · 18ms ⭐",
+      "name": "🔥 TOP-1 🇺🇸 · Wi-Fi · VLESS · 14ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 18,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-3 🇺🇸 · Mobile · VLESS · 15ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 15,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-4 🇺🇸 · Mobile · VLESS · 9ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 9,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-5 🇺🇸 · Mobile · VLESS · 15ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 15,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-6 🇺🇸 · Mobile · VLESS · 19ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 19,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-7 🇺🇸 · Mobile · VLESS · 15ms ⭐",
-      "proto": "vless",
-      "cc": "US",
-      "ms": 15,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-8 🇸🇨 · Wi-Fi · VLESS · 8ms ⭐",
-      "proto": "vless",
-      "cc": "SC",
-      "ms": 8,
+      "ms": 14,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-9 🇸🇨 · Wi-Fi · VLESS · 12ms ⭐",
+      "name": "🔥 TOP-2 🇺🇸 · Wi-Fi · VLESS · 21ms ⭐",
       "proto": "vless",
-      "cc": "SC",
-      "ms": 12,
+      "cc": "US",
+      "ms": 21,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-10 🇺🇸 · Wi-Fi · VLESS · 10ms ⭐",
+      "name": "🔥 TOP-3 🇺🇸 · Wi-Fi · VLESS · 20ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 10,
+      "ms": 20,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-4 🇺🇸 · Wi-Fi · VLESS · 28ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 28,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-5 🇺🇸 · Wi-Fi · VLESS · 27ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 27,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-6 🇺🇸 · Wi-Fi · VLESS · 26ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 26,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-7 🇺🇦 · Wi-Fi · VLESS · 34ms ⭐",
+      "proto": "vless",
+      "cc": "UA",
+      "ms": 34,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-8 🇺🇸 · Wi-Fi · VLESS · 35ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 35,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-9 🇺🇸 · Wi-Fi · VLESS · 28ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 28,
+      "tag": "Wi-Fi",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-10 🇪🇸 · Wi-Fi · VLESS · 22ms ⭐",
+      "proto": "vless",
+      "cc": "ES",
+      "ms": 22,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     }
   ],
-  "working": 844,
+  "working": 591,
   "openvpn": 30,
-  "updated": "26.11.2026 07:42 МСК"
+  "updated": "26.11.2026 11:02 МСК"
 }
