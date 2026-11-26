@@ -1,29 +1,29 @@
 {
   "all": 500,
-  "russia_white": 5,
-  "russia_mobile": 143,
-  "russia_wifi": 130,
-  "russia_reserve": 29,
-  "russia": 307,
+  "russia_white": 50,
+  "russia_mobile": 150,
+  "russia_wifi": 200,
+  "russia_reserve": 73,
+  "russia": 1585,
   "vless": 300,
   "vmess": 300,
   "trojan": 300,
   "ss": 300,
   "top": [
     {
-      "name": "🔥 TOP-1 🇺🇸 · Mobile · VLESS · 6ms ⭐",
+      "name": "🔥 TOP-1 🇺🇸 · Mobile · VLESS · 8ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 6,
+      "ms": 8,
       "tag": "Mobile",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-2 🇺🇸 · Mobile · VLESS · 2ms ⭐",
+      "name": "🔥 TOP-2 🇺🇸 · Mobile · VLESS · 19ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 2,
+      "ms": 19,
       "tag": "Mobile",
       "type": "VLESS",
       "stable": true
@@ -38,70 +38,70 @@
       "stable": true
     },
     {
-      "name": "🔥 TOP-4 🇺🇸 · Wi-Fi · VLESS · 17ms ⭐",
+      "name": "🔥 TOP-4 🇺🇸 · Mobile · VLESS · 7ms ⭐",
       "proto": "vless",
       "cc": "US",
+      "ms": 7,
+      "tag": "Mobile",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-5 🇺🇸 · Mobile · VLESS · 19ms ⭐",
+      "proto": "vless",
+      "cc": "US",
+      "ms": 19,
+      "tag": "Mobile",
+      "type": "VLESS",
+      "stable": true
+    },
+    {
+      "name": "🔥 TOP-6 🇸🇨 · Wi-Fi · VLESS · 17ms ⭐",
+      "proto": "vless",
+      "cc": "SC",
       "ms": 17,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-5 🇺🇸 · Wi-Fi · VLESS · 1ms ⭐",
+      "name": "🔥 TOP-7 🇸🇨 · Wi-Fi · VLESS · 8ms ⭐",
       "proto": "vless",
-      "cc": "US",
-      "ms": 1,
+      "cc": "SC",
+      "ms": 8,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-6 🇺🇸 · Wi-Fi · VLESS · 15ms ⭐",
+      "name": "🔥 TOP-8 🇸🇨 · Wi-Fi · VLESS · 8ms ⭐",
       "proto": "vless",
-      "cc": "US",
-      "ms": 15,
+      "cc": "SC",
+      "ms": 8,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-7 🇷🇺 · Wi-Fi · VLESS · 138ms ⭐",
+      "name": "🔥 TOP-9 🇸🇨 · Wi-Fi · VLESS · 7ms ⭐",
       "proto": "vless",
-      "cc": "RU",
-      "ms": 138,
+      "cc": "SC",
+      "ms": 7,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     },
     {
-      "name": "🔥 TOP-8 🇷🇺 · Mobile · VLESS · 154ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 154,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-9 🇺🇸 · Mobile · VLESS · 45ms ⭐",
+      "name": "🔥 TOP-10 🇺🇸 · Wi-Fi · VLESS · 7ms ⭐",
       "proto": "vless",
       "cc": "US",
-      "ms": 45,
-      "tag": "Mobile",
-      "type": "VLESS",
-      "stable": true
-    },
-    {
-      "name": "🔥 TOP-10 🇷🇺 · Wi-Fi · VLESS · 145ms ⭐",
-      "proto": "vless",
-      "cc": "RU",
-      "ms": 145,
+      "ms": 7,
       "tag": "Wi-Fi",
       "type": "VLESS",
       "stable": true
     }
   ],
-  "working": 291,
+  "working": 1533,
   "openvpn": 30,
-  "updated": "26.11.2026 01:31 МСК"
+  "updated": "26.11.2026 04:59 МСК"
 }
